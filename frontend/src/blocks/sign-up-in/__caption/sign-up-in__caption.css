@@ -1,0 +1,17 @@
+.sign-up-in__caption {
+  display: inline-block;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  color: #fff;
+  margin: 0 auto;
+  padding: 0;
+  width: 50%;
+  text-decoration: none;
+  transition: opacity 0.2s linear;
+}
+
+.sign-up-in__caption:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}

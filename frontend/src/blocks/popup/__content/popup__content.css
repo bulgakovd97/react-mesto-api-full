@@ -1,0 +1,18 @@
+.popup__content {
+    display: flex;
+    align-items: center;
+    max-width: 62%;
+}
+
+@media screen and (max-width: 490px) {
+    .popup__content {
+        max-width: 282px;
+        margin: 0 25.5%;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .popup__content {
+        margin: 0 12.5%;
+    }
+}

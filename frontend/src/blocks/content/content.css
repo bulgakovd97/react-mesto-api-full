@@ -1,0 +1,12 @@
+.content {
+    width: 100%;
+    margin-top: 4.546%;
+    margin-bottom: 7.5%;
+}
+
+@media screen and (max-width: 490px) {
+    .content {
+        margin-top: 13.125%;
+        margin-bottom: 15.5%;
+    }
+}

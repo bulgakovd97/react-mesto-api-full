@@ -1,0 +1,12 @@
+.profile__avatar-container {
+    /* width: 13.67%; */
+    width: 120px;
+    max-height: 120px;
+    position: relative;
+}
+
+/* @media screen and (max-width: 490px) {
+    .profile__avatar-container {
+        width: 42.555%;
+    }
+} */

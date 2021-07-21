@@ -1,0 +1,16 @@
+.container {
+    width: 68.75%;
+    margin: 0 auto;
+    padding-top: 45px;
+    padding-bottom: 60px;
+    box-sizing: border-box;
+}
+
+@media screen and (max-width: 490px) {
+    .container {
+        width: 100%;
+        padding-top: 28px;
+        padding-bottom: 36px;
+        max-width: 320px;
+    }
+}

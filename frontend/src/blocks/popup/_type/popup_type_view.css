@@ -1,0 +1,11 @@
+.popup_type_view {
+    padding: 0;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+@media screen and (max-width: 490px) {
+    .popup_type_view {
+        align-items: center;
+    }
+}

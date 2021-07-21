@@ -1,0 +1,28 @@
+.popup__input {
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 358px;
+  height: 27px;
+  padding: 0;
+  font-weight: normal;
+  font-size: 14px;
+}
+
+.popup__input::-webkit-input-placeholder {
+  color: #c4c4c4;
+}
+
+.popup__input::-moz-placeholder {
+  color: #c4c4c4;
+}
+
+.popup__input:not(:first-of-type) {
+  margin-top: 3.64%;
+}
+
+@media screen and (max-width: 768px) {
+  .popup__input:not(:first-of-type) {
+    margin-top: 5.47%;
+  }
+}

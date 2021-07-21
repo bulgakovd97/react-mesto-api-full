@@ -1,0 +1,9 @@
+.popup__register-success {
+  background-image: url("../../../images/reg-success.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  width: 120px;
+  height: 120px;
+  margin: 26px auto 32px;
+}

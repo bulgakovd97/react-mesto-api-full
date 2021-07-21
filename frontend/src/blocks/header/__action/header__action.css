@@ -1,0 +1,16 @@
+.header__action {
+  font-weight: normal;
+  font-size: 18px;
+  max-height: 22px;
+  line-height: 22px;
+  padding: 5px 0 0 0;
+  margin: 0;
+  text-decoration: none;
+  color: #fff;
+  transition: opacity 0.2s linear;
+}
+
+.header__action:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}

@@ -1,0 +1,8 @@
+.card__caption-field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 7.83% 7.177% 7.83% 7.447%;
+  box-sizing: border-box;
+}

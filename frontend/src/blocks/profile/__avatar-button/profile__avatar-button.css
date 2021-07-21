@@ -1,0 +1,39 @@
+.profile__avatar-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    border: none;
+    box-sizing: border-box;
+    background-image: url('../../../images/avatar-button.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #000;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.profile__avatar-button:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+    .profile__avatar-button {
+        background-size: 15px;
+    }
+}
+
+@media screen and (max-width: 590px) {
+    .profile__avatar-button {
+        background-size: 13px;
+    }
+}
+
+@media screen and (max-width: 490px) {
+    .profile__avatar-button {
+        background-size: 26px;
+    }
+}
