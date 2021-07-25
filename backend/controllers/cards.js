@@ -6,8 +6,8 @@ const Card = require('../models/card');
 
 const getCards = (req, res, next) => {
   Card.find()
-    .populate('owner')
-    .then(cards => res.send({ cards }))
+    .populate(['owner', 'likes'])
+    .then(cards => res.send(cards))
     .catch(err => next(err));
 };
 
@@ -15,7 +15,7 @@ const createCard = (req, res, next) => {
   const { name, link } = req.body;
 
   Card.create({ name, link, owner: req.user._id })
-    .then(card => res.send({ card }))
+    .then(card => res.send(card))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         throw new NotValidError('Переданы некорректные данные при создании карточки');
@@ -37,7 +37,7 @@ const deleteCard = (req, res, next) => {
 
       return Card.deleteOne({ _id: card._id })
         .then(card => {
-          res.status(200).send({ card });
+          res.status(200).send(card);
         })
         .catch(next);
     })
@@ -57,12 +57,13 @@ const likeCard = (req, res, next) => {
     { $addToSet: { likes: req.user._id } },
     { new: true },
   )
+    .populate('likes')
     .then(card => {
       if (!card) {
         throw new NotFoundError('Карточка с указанным _id не найдена');
       }
 
-      res.send({ card });
+      res.send(card);
     })
     .catch(err => {
       if (err.name === 'CastError') {
@@ -80,12 +81,13 @@ const dislikeCard = (req, res, next) => {
     { $pull: { likes: req.user._id } },
     { new: true },
   )
+    .populate('likes')
     .then(card => {
       if (!card) {
         throw new NotFoundError('Карточка с указанным _id не найдена');
       }
 
-      res.send({ card });
+      res.send(card);
     })
     .catch(err => {
       if (err.name === 'CastError') {

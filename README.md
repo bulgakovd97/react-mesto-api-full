@@ -3,5 +3,5 @@
   
 Пожалуйста, прикрепите в это описание ссылку на сайт, размещенный на Яндекс.Облаке.
 
-# Публичный IP: 
-# Домен: 
+# Публичный IP: 178.154.200.136
+# Домен: mesto.bulgakovd.nomoredomains.club, api.mesto.bulgakovd.nomoredomains.club

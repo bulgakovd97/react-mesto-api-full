@@ -44,17 +44,19 @@ function App() {
 
   const history = useHistory();
 
-  React.useEffect(() => {
+  function getInitialData(token) {
     api
-      .getInitialData()
+      .getInitialData(token)
       .then((data) => {
         const [userData, cardsData] = data;
 
         setCurrentUser(userData);
         setCards(cardsData);
       })
-      .catch((err) => console.log("Ошибка загрузки начальных данных - " + err));
-  }, []);
+      .catch((err) => {
+        console.log("Ошибка загрузки начальных данных - " + err);
+      });
+  }
 
   function handleAddPlaceClick() {
     setIsAddPlacePopupOpen(true);
@@ -182,12 +184,14 @@ function App() {
   function login({ password, email }) {
     return auth
       .authorize({ password, email })
-      .then((data) => {
-        if (data.token) {
-          localStorage.setItem("jwt", data.token);
+      .then(({ token }) => {
+        if (token) {
+          localStorage.setItem("jwt", token);
           history.push("/");
           setIsLoggedIn(true);
           setUserInfo({ email });
+          
+          getInitialData(token);
         } else {
           return;
         }
@@ -200,14 +204,16 @@ function App() {
 
   function tokenCheck() {
     const jwt = localStorage.getItem("jwt");
-
+    
     if (!jwt) {
       return;
     }
 
+    getInitialData(jwt);
+
     auth
       .getContent(jwt)
-      .then(({ data }) => {
+      .then((data) => {
         return data;
       })
       .then(({ email }) => {

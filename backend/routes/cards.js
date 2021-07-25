@@ -26,13 +26,13 @@ cardRouter.delete('/cards/:cardId', auth, celebrate({
   }).unknown(true),
 }), deleteCard);
 
-cardRouter.put('/cards/:cardId/likes', auth, celebrate({
+cardRouter.put('/cards/likes/:cardId', auth, celebrate({
   params: Joi.object().keys({
     cardId: Joi.string().alphanum().length(24),
   }).unknown(true),
 }), likeCard);
 
-cardRouter.delete('/cards/:cardId/likes', auth, celebrate({
+cardRouter.delete('/cards/likes/:cardId', auth, celebrate({
   params: Joi.object().keys({
     cardId: Joi.string().alphanum().length(24),
   }).unknown(true),

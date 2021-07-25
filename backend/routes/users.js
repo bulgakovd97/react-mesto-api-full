@@ -4,22 +4,22 @@ const { auth } = require('../middlewares/auth');
 const regex = require('../utils/utils');
 
 const {
-  getUsers,
-  getUser,
+  // getUsers,
+  // getUser,
   getUserMe,
   updateUserInfo,
   updateUserAvatar,
 } = require('../controllers/users');
 
-userRouter.get('/users', auth, getUsers);
+// userRouter.get('/users', auth, getUsers);
 
 userRouter.get('/users/me', auth, getUserMe);
 
-userRouter.get('/users/:userId', auth, celebrate({
-  params: Joi.object().keys({
-    userId: Joi.string().alphanum().length(24),
-  }).unknown(true),
-}), getUser);
+// userRouter.get('/users/:userId', auth, celebrate({
+//   params: Joi.object().keys({
+//     userId: Joi.string().alphanum().length(24),
+//   }).unknown(true),
+// }), getUser);
 
 userRouter.patch('/users/me', auth, celebrate({
   body: Joi.object().keys({

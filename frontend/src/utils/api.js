@@ -14,24 +14,35 @@ class Api {
     return Promise.reject(new Error(`${res.status}`));
   }
 
-  getUserInfo() {
-    return fetch(`${this.url}/users/me`, { headers: this.headers }).then(this._checkApiRequest);
-  }
-
-  getInitialCards() {
-    return fetch(`${this.url}/cards`, {
-      headers: this.headers,
+  getUserInfo(token) {
+    return fetch(`${this.url}/users/me`, {
+      headers: {
+        ...this.headers,
+        authorization: `Bearer ${token}`,
+      },
     }).then(this._checkApiRequest);
   }
 
-  getInitialData() {
-    return Promise.all([this.getUserInfo(), this.getInitialCards()]);
+  getInitialCards(token) {
+    return fetch(`${this.url}/cards`, {
+      headers: {
+        ...this.headers,
+        authorization: `Bearer ${token}`,
+      },
+    }).then(this._checkApiRequest);
+  }
+
+  getInitialData(token) {
+    return Promise.all([this.getUserInfo(token), this.getInitialCards(token)]);
   }
 
   setUserInfo(name, about) {
     return fetch(`${this.url}/users/me`, {
       method: "PATCH",
-      headers: this.headers,
+      headers: {
+        ...this.headers,
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
       body: JSON.stringify({ name, about }),
     }).then(this._checkApiRequest);
   }
@@ -39,7 +50,10 @@ class Api {
   changeAvatar(avatar) {
     return fetch(`${this.url}/users/me/avatar`, {
       method: "PATCH",
-      headers: this.headers,
+      headers: {
+        ...this.headers,
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
       body: JSON.stringify({ avatar }),
     }).then(this._checkApiRequest);
   }
@@ -47,7 +61,10 @@ class Api {
   addCard(name, link) {
     return fetch(`${this.url}/cards`, {
       method: "POST",
-      headers: this.headers,
+      headers: {
+        ...this.headers,
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
       body: JSON.stringify({ name, link }),
     }).then(this._checkApiRequest);
   }
@@ -55,14 +72,20 @@ class Api {
   removeCard(id) {
     return fetch(`${this.url}/cards/${id}`, {
       method: "DELETE",
-      headers: this.headers,
+      headers: {
+        ...this.headers,
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
     }).then(this._checkApiRequest);
   }
 
   changeLikeCardStatus(id, isLiked) {
     return fetch(`${this.url}/cards/likes/${id}`, {
       method: isLiked ? "DELETE" : "PUT",
-      headers: this.headers,
+      headers: {
+        ...this.headers,
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
     }).then(this._checkApiRequest);
   }
 }

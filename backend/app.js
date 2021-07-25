@@ -26,7 +26,9 @@ const NotFoundError = require('./errors/NotFoundError');
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const { PORT = 3000 } = process.env;
+const { corsHandler } = require('./middlewares/corsHandler');
+
+const { PORT = 3005 } = process.env;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -43,6 +45,8 @@ app.get('/crash-test', () => {
     throw new Error('Сервер сейчас упадёт');
   }, 0);
 });
+
+app.use(corsHandler);
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({

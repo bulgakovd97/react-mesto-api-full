@@ -4,6 +4,7 @@ class Auth {
   constructor(config) {
     this.url = config.url;
     this.headers = config.headers;
+    this.credentials = config.credentials;
   }
 
   _checkResponse(res) {
@@ -30,7 +31,7 @@ class Auth {
     return fetch(`${this.url}/users/me`, {
       headers: {
         ...this.headers,
-        Authorization: `Bearer ${token}`,
+        "Authorization": `Bearer ${token}`,
       },
     }).then(this._checkResponse);
   }

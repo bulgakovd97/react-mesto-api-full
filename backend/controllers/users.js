@@ -7,30 +7,30 @@ const NotValidError = require('../errors/NotValidError');
 const AuthorizationError = require('../errors/AuthorizationError');
 const EmailExistsError = require('../errors/EmailExistsError');
 
-const getUsers = (req, res, next) => {
-  User.find()
-    .then((users) => res.send({ users }))
-    .catch(next);
-};
+// const getUsers = (req, res, next) => {
+//   User.find()
+//     .then((users) => res.send({ users }))
+//     .catch(next);
+// };
 
-const getUser = (req, res, next) => {
-  User.findById(req.params.userId)
-    .then((user) => {
-      if (!user) {
-        throw new NotFoundError('Пользователь по указанному _id не найден');
-      }
+// const getUser = (req, res, next) => {
+//   User.findById(req.params.userId)
+//     .then((user) => {
+//       if (!user) {
+//         throw new NotFoundError('Пользователь по указанному _id не найден');
+//       }
 
-      return res.send({ user });
-    })
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        throw new NotValidError('Переданы некорректные данные');
-      }
+//       return res.send({ user });
+//     })
+//     .catch((err) => {
+//       if (err.name === 'CastError') {
+//         throw new NotValidError('Переданы некорректные данные');
+//       }
 
-      return next(err);
-    })
-    .catch(next);
-};
+//       return next(err);
+//     })
+//     .catch(next);
+// };
 
 const getUserMe = (req, res, next) => {
   const { _id } = req.user;
@@ -41,7 +41,7 @@ const getUserMe = (req, res, next) => {
         throw new NotFoundError('Пользователь по указанному _id не найден');
       }
 
-      return res.send({ user });
+      return res.send(user);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -112,7 +112,7 @@ const updateUserInfo = (req, res, next) => {
         throw new NotFoundError('Пользователь по указанному _id не найден');
       }
 
-      return res.send({ user });
+      return res.send(user);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -140,7 +140,7 @@ const updateUserAvatar = (req, res, next) => {
         throw new NotFoundError('Пользователь по указанному _id не найден');
       }
 
-      res.send({ user });
+      res.send(user);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -174,8 +174,8 @@ const login = (req, res, next) => {
 };
 
 module.exports = {
-  getUsers,
-  getUser,
+  // getUsers,
+  // getUser,
   getUserMe,
   createUser,
   updateUserInfo,
