@@ -9,7 +9,7 @@ const EmailExistsError = require('../errors/EmailExistsError');
 
 // const getUsers = (req, res, next) => {
 //   User.find()
-//     .then((users) => res.send({ users }))
+//     .then((users) => res.send(users))
 //     .catch(next);
 // };
 
@@ -35,7 +35,7 @@ const EmailExistsError = require('../errors/EmailExistsError');
 const getUserMe = (req, res, next) => {
   const { _id } = req.user;
 
-  User.findOne({ _id }).select('+password')
+  User.findOne({ _id })
     .then((user) => {
       if (!user) {
         throw new NotFoundError('Пользователь по указанному _id не найден');
@@ -76,12 +76,10 @@ const createUser = (req, res, next) => {
         avatar,
       })
         .then((user) => res.status(200).send({
-          user: {
-            email,
-            name,
-            about,
-            avatar,
-          },
+          email,
+          name,
+          about,
+          avatar,
         }))
         .catch((err) => {
           if (err.name === 'ValidationError') {

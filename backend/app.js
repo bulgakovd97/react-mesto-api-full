@@ -28,7 +28,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { corsHandler } = require('./middlewares/corsHandler');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3005 } = process.env;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

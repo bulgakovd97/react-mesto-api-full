@@ -6,8 +6,9 @@ const Card = require('../models/card');
 
 const getCards = (req, res, next) => {
   Card.find()
-    .populate(['owner', 'likes'])
-    .then(cards => res.send(cards))
+    .then(cards => {
+      res.send(cards);
+    })
     .catch(err => next(err));
 };
 
@@ -57,7 +58,6 @@ const likeCard = (req, res, next) => {
     { $addToSet: { likes: req.user._id } },
     { new: true },
   )
-    .populate('likes')
     .then(card => {
       if (!card) {
         throw new NotFoundError('Карточка с указанным _id не найдена');
@@ -81,7 +81,6 @@ const dislikeCard = (req, res, next) => {
     { $pull: { likes: req.user._id } },
     { new: true },
   )
-    .populate('likes')
     .then(card => {
       if (!card) {
         throw new NotFoundError('Карточка с указанным _id не найдена');
