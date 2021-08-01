@@ -1,7 +1,5 @@
 const express = require('express');
 
-require('dotenv').config();
-
 const bodyParser = require('body-parser');
 
 const mongoose = require('mongoose');
@@ -19,6 +17,8 @@ const userRouter = require('./routes/users');
 const cardRouter = require('./routes/cards');
 
 const { login, createUser } = require('./controllers/users');
+
+const { auth } = require('./middlewares/auth');
 
 const { errorHandler } = require('./middlewares/errorHandler');
 
@@ -69,9 +69,9 @@ app.use(requestLogger);
 
 app.use(helmet());
 
-app.use('/', userRouter);
+app.use('/', auth, userRouter);
 
-app.use('/', cardRouter);
+app.use('/', auth, cardRouter);
 
 app.use(errorLogger);
 

@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { jwtSecret } = require('../config');
 
 const NoAccessError = require('../errors/NoAccessError');
 
@@ -14,9 +15,7 @@ const auth = (req, res, next) => {
   let payload;
 
   try {
-    const { JWT_SECRET } = process.env;
-
-    payload = jwt.verify(token, JWT_SECRET);
+    payload = jwt.verify(token, jwtSecret);
   } catch (err) {
     throw new NoAccessError('Необходимо авторизоваться');
   }
