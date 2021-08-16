@@ -76,3 +76,5 @@
 @import url(./blocks/sign-up-in/__input/sign-up-in__input.css);
 @import url(./blocks/sign-up-in/__input/_type/sign-up-in__input_type_email.css);
 @import url(./blocks/sign-up-in/__input/_type/sign-up-in__input_type_password.css);
+@import url(./blocks/preloader/preloader.css);
+@import url(./blocks/preloader/__circle/preloader__circle.css);

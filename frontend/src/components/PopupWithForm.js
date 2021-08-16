@@ -16,7 +16,11 @@ function PopupWithForm(props) {
         >
           <fieldset className="popup__form-set">
             {props.children}
-            <button className="popup__button" type="submit">
+            <button 
+              className={`popup__button ${props.isDisabled && "popup__button_disabled"}`} 
+              type="submit"
+              disabled={props.isDisabled}
+              >
               {props.buttonText}
             </button>
           </fieldset>

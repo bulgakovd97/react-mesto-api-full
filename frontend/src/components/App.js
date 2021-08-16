@@ -42,9 +42,17 @@ function App() {
 
   const [infoMessage, setInfoMessage] = React.useState({ image: "", text: "" });
 
+  const [isCardsLoading, setIsCardsLoading] = React.useState(false);
+
+  const [isSending, setIsSending] = React.useState(false);
+
+  const [isChecking, setIsChecking] = React.useState(true);
+  
   const history = useHistory();
 
   function getInitialData(token) {
+    setIsCardsLoading(true);
+    
     api
       .getInitialData(token)
       .then((data) => {
@@ -55,7 +63,8 @@ function App() {
       })
       .catch((err) => {
         console.log("Ошибка загрузки начальных данных - " + err);
-      });
+      })
+      .finally(() => setIsCardsLoading(false));
   }
 
   function handleAddPlaceClick() {
@@ -124,6 +133,8 @@ function App() {
   }
 
   function handleUpdateUser({ name, about }) {
+    setIsSending(true);
+
     api
       .setUserInfo(name, about)
       .then((userData) => {
@@ -131,10 +142,13 @@ function App() {
 
         closeAllPopups();
       })
-      .catch((err) => console.log("Ошибка обновления данных пользователя - " + err));
+      .catch((err) => console.log("Ошибка обновления данных пользователя - " + err))
+      .finally(() => setIsSending(false));
   }
 
   function handleUpdateAvatar({ avatar }) {
+    setIsSending(true);
+
     api
       .changeAvatar(avatar)
       .then((userData) => {
@@ -142,10 +156,13 @@ function App() {
 
         closeAllPopups();
       })
-      .catch((err) => console.log("Ошибка обновления аватара пользователя - " + err));
+      .catch((err) => console.log("Ошибка обновления аватара пользователя - " + err))
+      .finally(() => setIsSending(false));
   }
 
   function handleAddPlaceSubmit({ name, link }) {
+    setIsSending(true);
+
     api
       .addCard(name, link)
       .then((cardsData) => {
@@ -153,10 +170,13 @@ function App() {
 
         closeAllPopups();
       })
-      .catch((err) => console.log("Ошибка добавления новой карточки - " + err));
+      .catch((err) => console.log("Ошибка добавления новой карточки - " + err))
+      .finally(() => setIsSending(false));
   }
 
   function handleDeleteCardSubmit(id) {
+    setIsSending(true);
+    
     api
       .removeCard(id)
       .then(() => {
@@ -164,7 +184,8 @@ function App() {
 
         closeAllPopups();
       })
-      .catch((err) => console.log("Ошибка удаления карточки - " + err));
+      .catch((err) => console.log("Ошибка удаления карточки - " + err))
+      .finally(() => setIsSending(false));
   }
 
   function register(data) {
@@ -199,7 +220,8 @@ function App() {
       .catch(() => {
         setIsInfoTooltipOpen(true);
         setInfoMessage({ image: "fail", text: "Что-то пошло не так! Попробуйте ещё раз." });
-      });
+      })
+      .finally(() => setIsChecking(false));
   }
 
   function tokenCheck() {
@@ -208,7 +230,7 @@ function App() {
     if (!jwt) {
       return;
     }
-
+    
     getInitialData(jwt);
 
     auth
@@ -224,7 +246,8 @@ function App() {
         setIsInfoTooltipOpen(true);
         setInfoMessage({ image: "fail", text: `Ошибка ${err.status} - переданный токен некорректен` });
         logout();
-      });
+      })
+      .finally(() => setIsChecking(false));
   }
 
   React.useEffect(() => {
@@ -261,6 +284,8 @@ function App() {
                 onCardPreview={handleCardClick}
                 onCardLike={handleCardLike}
                 onCardDelete={handleCardDeleteClick}
+                isCardsLoading={isCardsLoading}
+                isChecking={isChecking}
               />
               <Route path="/sign-up">
                 <Register onRegister={register} />
@@ -277,14 +302,21 @@ function App() {
               isOpen={isEditProfilePopupOpen}
               onClose={closeAllPopups}
               onUpdateUser={handleUpdateUser}
+              isSending={isSending}
             />
 
-            <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} />
+            <AddPlacePopup 
+              isOpen={isAddPlacePopupOpen} 
+              onClose={closeAllPopups} 
+              onAddPlace={handleAddPlaceSubmit} 
+              isSending={isSending}
+            />
 
             <EditAvatarPopup
               isOpen={isEditAvatarPopupOpen}
               onClose={closeAllPopups}
               onUpdateAvatar={handleUpdateAvatar}
+              isSending={isSending}
             />
 
             <DeleteCardPopup
@@ -292,6 +324,7 @@ function App() {
               isOpen={isDeleteCardPopupOpen}
               onClose={closeAllPopups}
               onCardDelete={handleDeleteCardSubmit}
+              isSending={isSending}
             />
 
             <ImagePopup card={selectedCard} onClose={closeAllPopups} />

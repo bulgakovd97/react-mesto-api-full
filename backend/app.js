@@ -28,7 +28,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { corsHandler } = require('./middlewares/corsHandler');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3005 } = process.env;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -38,12 +38,6 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useCreateIndex: true,
   useUnifiedTopology: true,
   useFindAndModify: false,
-});
-
-app.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
 });
 
 app.use(corsHandler);

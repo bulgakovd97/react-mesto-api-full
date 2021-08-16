@@ -2,6 +2,7 @@ import React from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { CardsContext } from "../contexts/CardsContext";
 import Card from "./Card";
+import Preloader from "./Preloader";
 
 function Main(props) {
   const currentUser = React.useContext(CurrentUserContext);
@@ -42,17 +43,23 @@ function Main(props) {
       </section>
 
       <section aria-label="Карточки">
-        <ul className="elements">
-          {cards.map((card) => (
-            <Card
-              card={card}
-              onCardClick={props.onCardPreview}
-              onCardLike={props.onCardLike}
-              onCardDelete={props.onCardDelete}
-              key={card._id}
-            />
-          ))}
-        </ul>
+        {props.isCardsLoading && (
+          <Preloader />
+        )}
+        
+        {!props.isCardsLoading && (
+          <ul className="elements">
+            {cards.map((card) => (
+              <Card
+                card={card}
+                onCardClick={props.onCardPreview}
+                onCardLike={props.onCardLike}
+                onCardDelete={props.onCardDelete}
+                key={card._id}
+              />
+            ))}
+          </ul>
+        )}
       </section>
     </main>
   );
