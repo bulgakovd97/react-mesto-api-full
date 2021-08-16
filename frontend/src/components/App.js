@@ -257,6 +257,7 @@ function App() {
   React.useEffect(() => {
     if (isLoggedIn) {
       history.push("/");
+      setIsChecking(false);
     }
   }, [isLoggedIn, history]);
 
