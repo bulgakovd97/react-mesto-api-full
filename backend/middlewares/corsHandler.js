@@ -4,8 +4,8 @@ const corsHandler = (req, res, next) => {
   const requestHeaders = req.headers['access-control-request-headers'];
 
   const allowedCors = [
-    'http://mesto.bulgakovd.nomoredomains.club',
-    'https://mesto.bulgakovd.nomoredomains.club',
+    'http://mesto.bulgakovd.nomoredomains.rocks',
+    'https://mesto.bulgakovd.nomoredomains.rocks',
     'http://localhost:3000',
   ];
 
