@@ -228,10 +228,9 @@ function App() {
     const jwt = localStorage.getItem("jwt");
     
     if (!jwt) {
-      return;
-    }
-    
-    getInitialData(jwt);
+      setIsChecking(false);
+    } else {
+      getInitialData(jwt);
 
     auth
       .getContent(jwt)
@@ -248,6 +247,7 @@ function App() {
         logout();
       })
       .finally(() => setIsChecking(false));
+    }  
   }
 
   React.useEffect(() => {
