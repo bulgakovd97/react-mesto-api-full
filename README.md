@@ -82,4 +82,4 @@ Backend:
 
 # Публичный IP: 178.154.200.136
 # Домен для фронтенда: https://mesto.bulgakovd.nomoredomains.rocks
-# Домен для бэкенда: api.mesto.bulgakovd.nomoredomains.rocks
+# Домен для бэкенда: https://api.mesto.bulgakovd.nomoredomains.rocks
